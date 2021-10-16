@@ -1,0 +1,26 @@
+{
+    "id": "35462824",
+    "path": "C:/Users/mgluc/Desktop/Facultad/Data Mining/DataMiningenEconomíayFinanzas/dmeyf/src/rpart/250_gridsearch.r",
+    "project_path": "src/rpart/250_gridsearch.r",
+    "type": "r_source",
+    "hash": "2350737452",
+    "contents": "",
+    "dirty": false,
+    "created": 1630036492438.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "108,17",
+        "scrollLine": "99"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1630037621,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1630037621708,
+    "read_only": false,
+    "read_only_alternatives": []
+}
