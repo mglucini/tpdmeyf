@@ -3,7 +3,7 @@ rm( list=ls() )  #remove all objects
 gc()             #garbage collection
 
 require("data.table")
-setwd("~/Escritorio/Facultad/Data Mining/DataMiningenEconomíayFinanzas")
+setwd("~/buckets/b1/")
 
 script  <- 1
 

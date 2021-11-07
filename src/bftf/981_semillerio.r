@@ -15,7 +15,7 @@ require("lightgbm")
 
 require("primes")  #para generar semillas
 
-directory.root <- "~/Escritorio/Facultad/Data Mining/DataMiningenEconomíayFinanzas"
+directory.root <- "~/buckets/b1/"
 setwd( directory.root )
 
 kexperimento  <- NA
