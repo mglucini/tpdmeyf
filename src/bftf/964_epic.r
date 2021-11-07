@@ -1,5 +1,5 @@
 #Necesita para correr en Google Cloud
-#64 GB de memoria RAM
+#128 GB de memoria RAM
 #256 GB de espacio en el disco local
 #8 vCPU
 
@@ -43,9 +43,9 @@ setwd( directory.root )
 
 kexperimento  <- NA   #NA si se corre la primera vez, un valor concreto si es para continuar procesando
 
-kscript         <- "961_epic"
+kscript         <- "964_epic"
 
-karch_dataset    <- "./datasets/dataset_epic_v951.csv.gz"
+karch_dataset    <- "./datasets/dataset_epic_v952.csv.gz"
 
 kapply_mes       <- c(202101)  #El mes donde debo aplicar el modelo
 
@@ -70,7 +70,11 @@ hs <- makeParamSet(
          makeNumericParam("learning_rate",    lower=    0.02 , upper=    0.1),
          makeNumericParam("feature_fraction", lower=    0.1  , upper=    1.0),
          makeIntegerParam("min_data_in_leaf", lower=  200L   , upper= 8000L),
-         makeIntegerParam("num_leaves",       lower=  100L   , upper= 1024L)
+         makeIntegerParam("num_leaves",       lower=  100L   , upper= 1024L),
+         makeIntegerParam("min_gain_to_split", lower=  0L   , upper= 15L),
+         makeNumericParam("lambda_l1", lower=  0   , upper= 100),
+         makeNumericParam("lambda_l2", lower=  0   , upper= 100),
+         makeIntegerParam("max_bin", lower=  1L   , upper= 1000L)
         )
 
 campos_malos  <- c("ccajas_transacciones","internet","tmobile_app")   #aqui se deben cargar todos los campos culpables del Data Drifting

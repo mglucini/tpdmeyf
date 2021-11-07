@@ -43,7 +43,7 @@ setwd( directory.root )
 
 kexperimento  <- NA   #NA si se corre la primera vez, un valor concreto si es para continuar procesando
 
-kscript         <- "961_epic"
+kscript         <- "963_epic_RF"
 
 karch_dataset    <- "./datasets/dataset_epic_v951.csv.gz"
 
@@ -67,10 +67,16 @@ kBO_iter    <-  100   #cantidad de iteraciones de la Optimizacion Bayesiana
 
 #Aqui se cargan los hiperparametros
 hs <- makeParamSet( 
-         makeNumericParam("learning_rate",    lower=    0.02 , upper=    0.1),
-         makeNumericParam("feature_fraction", lower=    0.1  , upper=    1.0),
-         makeIntegerParam("min_data_in_leaf", lower=  200L   , upper= 8000L),
-         makeIntegerParam("num_leaves",       lower=  100L   , upper= 1024L)
+  makeNumericParam("learning_rate",    lower=    0.02 , upper=    0.1),
+  makeNumericParam("feature_fraction", lower=    0.1  , upper=    0.8),
+  makeIntegerParam("min_data_in_leaf", lower=  100L   , upper= 8000L),
+  makeIntegerParam("num_leaves",       lower=    8L   , upper= 1024L),
+  makeIntegerParam("min_gain_to_split", lower=  0L   , upper= 15L),
+  makeNumericParam("lambda_l1", lower=  0   , upper= 100),
+  makeNumericParam("lambda_l2", lower=  0   , upper= 100),
+  makeNumericParam("bagging_fraction", lower=  0   , upper= 0.99),
+  makeIntegerParam("max_bin", lower=  1L   , upper= 1000L),
+  makeIntegerParam("bagging_freq", lower=  1L   , upper= 50L)
         )
 
 campos_malos  <- c("ccajas_transacciones","internet","tmobile_app")   #aqui se deben cargar todos los campos culpables del Data Drifting
@@ -291,6 +297,10 @@ EstimarGanancia_lightgbm  <- function( x )
                           metric= "custom",
                           first_metric_only= TRUE,
                           boost_from_average= TRUE,
+                          boosting="rf",
+                          bagging_fraction=0.5,
+                          bagging_freq =1, 
+                          #extra_trees=TRUE,
                           feature_pre_filter= FALSE,
                           verbosity= -100,
                           seed= 999983,
