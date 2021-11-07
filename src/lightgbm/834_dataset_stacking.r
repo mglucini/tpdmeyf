@@ -12,7 +12,7 @@ require("data.table")
 
 setwd("/home/mauro/Escritorio/Facultad/Data Mining/DataMiningenEconomíayFinanzas" )
 
-version  <- "v003"  #cambiar cada vez, asi se tiene versionado del dataset
+version  <- "v004"  #cambiar cada vez, asi se tiene versionado del dataset
 
 dataset  <- fread( "./datasets/dataset_epic_simple_v007.csv.gz" )
 dataset  <- copy(  dataset[  , c("numero_de_cliente","foto_mes","clase_ternaria"),  with=FALSE] )

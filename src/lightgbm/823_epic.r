@@ -35,6 +35,7 @@ require("mlrMBO")
 switch ( Sys.info()[['sysname']],
          Windows = { directory.root  <-  "M:\\" },   #Windows
          Darwin  = { directory.root  <-  "~/dm/" },  #Apple MAC
+         #Linux   = { directory.root  <-  "~/buckets/b1/" }
          Linux   = { directory.root  <-  "/home/mauro/Escritorio/Facultad/Data Mining/DataMiningenEconomíayFinanzas"  } #Google Cloud
        )
 #defino la carpeta donde trabajo
@@ -42,11 +43,11 @@ setwd( directory.root )
 
 
 
-kexperimento  <- NA   #NA si se corre la primera vez, un valor concreto si es para continuar procesando
+kexperimento  <- 1029   #NA si se corre la primera vez, un valor concreto si es para continuar procesando
 
 kscript         <- "823_epic"
 
-karch_dataset    <- "./datasets/dataset_epic_simple_v007.csv.gz"   #este dataset se genero en el script 812_dataset_epic.r
+karch_dataset    <- "./datasets/dataset_epic_simple_v009.csv.gz"   #este dataset se genero en el script 812_dataset_epic.r
 
 kapply_mes       <- c(202011)  #El mes donde debo aplicar el modelo
 
