@@ -22,7 +22,7 @@ setwd( directory.root )
 
 palancas  <- list()  #variable con las palancas para activar/desactivar
 
-palancas$version  <- "v953"   #Muy importante, ir cambiando la version
+palancas$version  <- "v954"   #Muy importante, ir cambiando la version
 
 palancas$variablesdrift  <- c("ccajas_transacciones","internet","tmobile_app")   #aqui van las columnas que se quieren eliminar
 
@@ -279,6 +279,116 @@ AgregarVariables  <- function( dataset )
 
   #Aqui debe usted agregar sus propias nuevas variables
 
+  dataset[ , mvr_Master_mlimitecompra:= Master_mlimitecompra / mv_mlimitecompra ]
+  dataset[ , mvr_Visa_mlimitecompra  := Visa_mlimitecompra / mv_mlimitecompra ]
+  dataset[ , mvr_msaldototal         := mv_msaldototal / mv_mlimitecompra ]
+  dataset[ , mvr_msaldopesos         := mv_msaldopesos / mv_mlimitecompra ]
+  dataset[ , mvr_msaldopesos2        := mv_msaldopesos / mv_msaldototal ]
+  dataset[ , mvr_msaldodolares       := mv_msaldodolares / mv_mlimitecompra ]
+  dataset[ , mvr_msaldodolares2      := mv_msaldodolares / mv_msaldototal ]
+  dataset[ , mvr_mconsumospesos      := mv_mconsumospesos / mv_mlimitecompra ]
+  dataset[ , mvr_mconsumosdolares    := mv_mconsumosdolares / mv_mlimitecompra ]
+  dataset[ , mvr_madelantopesos      := mv_madelantopesos / mv_mlimitecompra ]
+  dataset[ , mvr_madelantodolares    := mv_madelantodolares / mv_mlimitecompra ]
+  dataset[ , mvr_mpagado             := mv_mpagado / mv_mlimitecompra ]
+  dataset[ , mvr_mpagospesos         := mv_mpagospesos / mv_mlimitecompra ]
+  dataset[ , mvr_mpagosdolares       := mv_mpagosdolares / mv_mlimitecompra ]
+  dataset[ , mvr_mconsumototal       := mv_mconsumototal  / mv_mlimitecompra ]
+  dataset[ , mvr_mpagominimo         := mv_mpagominimo  / mv_mlimitecompra ]
+  
+  #Aqui debe usted agregar sus propias nuevas variables
+  # Suma de cantidad de  Prestamos Prendarios , Personales e Hipotecarios
+  dataset[ , ctotal_prestamos          := rowSums( cbind( cprestamos_personales,  cprestamos_prendarios,cprestamos_hipotecarios) , na.rm=TRUE ) ]
+  dataset[ , crateprestamosp         := cprestamos_personales  / ctotal_prestamos ]
+  dataset[ , crateprestamospr         := cprestamos_prendarios  / ctotal_prestamos ]
+  dataset[ , crateprestamosh         := cprestamos_hipotecarios  / ctotal_prestamos ]
+  # Suma de monto de  Prestamos Prendarios , Personales e Hipotecarios
+  dataset[ , mtotal_prestamos          := rowSums( cbind( mprestamos_personales,  mprestamos_prendarios,mprestamos_hipotecarios) , na.rm=TRUE ) ]
+  dataset[ , mrateprestamosp         := mprestamos_personales  / mtotal_prestamos ]
+  dataset[ , mrateprestamospr         := mprestamos_prendarios  / mtotal_prestamos ]
+  dataset[ , mrateprestamosh         := mprestamos_hipotecarios  / mtotal_prestamos ]
+  
+  # Rate Total Prestamos
+  dataset[ , prestamos_promedio_total         := mtotal_prestamos  / ctotal_prestamos ]
+  
+  ####
+  
+  dataset[ , prom_cuentacorriente         := mcuenta_corriente  / ccuenta_corriente ]
+  dataset[ , prom_cajaahorro         := mcaja_ahorro  / ccaja_ahorro  ]
+  dataset[ , ccorriente_ahorro          := rowSums( cbind( ccuenta_corriente,  ccaja_ahorro) , na.rm=TRUE ) ]
+  dataset[ , mcorriente_ahorro          := rowSums( cbind( mcuenta_corriente,  mcaja_ahorro) , na.rm=TRUE ) ]
+  dataset[ , prom_corriente_ahorro         := mcorriente_ahorro  / ccorriente_ahorro  ]
+  
+  dataset[ , rt_1_ctrx_quarter         := ctrx_quarter  / mtarjeta_visa_consumo  ]
+  dataset[ , rt_2_ctrx_quarter         := ctrx_quarter  / mcaja_ahorro  ]
+  dataset[ , rt_3_ctrx_quarter         := ctrx_quarter  / mtotal_prestamos  ]
+  dataset[ , rt_4_ctrx_quarter         := ctrx_quarter  / cpayroll_trx  ]
+  dataset[ , rt_5_ctrx_quarter         := ctrx_quarter  / mvr_msaldopesos  ]
+  dataset[ , rt_6_ctrx_quarter         := ctrx_quarter  / mcuentas_saldo  ]
+  dataset[ , rt_7_ctrx_quarter         := ctrx_quarter  / cpayroll_trx  ]
+  dataset[ , rt_8_ctrx_quarter         := ctrx_quarter  / mpayroll  ]
+  dataset[ , rt_9_ctrx_quarter         := ctrx_quarter  / mcuenta_corriente  ]
+  dataset[ , rt_10_ctrx_quarter         := ctrx_quarter  / ctarjeta_visa_transacciones  ]
+  dataset[ , rt_11_ctrx_quarter         := ctrx_quarter  / mprestamos_personales  ]
+  dataset[ , rt_12_ctrx_quarter         := ctrx_quarter  / mactivos_margen  ]
+  dataset[ , rt_13_ctrx_quarter         := ctrx_quarter  / mv_status01  ]
+  dataset[ , rt_14_ctrx_quarter         := ctrx_quarter  / mcomisiones_mantenimiento  ]
+  dataset[ , rt_15_ctrx_quarter         := ctrx_quarter  / ctarjeta_visa_transacciones  ]
+  dataset[ , rt_16_ctrx_quarter         := ctrx_quarter  / mrentabilidad_annual  ]
+  
+  
+  dataset[ , rt_1_mactivos_margen         := mactivos_margen  / mprestamos_personales  ]
+  dataset[ , rt_1_mprestamos_personales         := mprestamos_personales  / mv_status01  ]
+  dataset[ , rt_1_mactivos_margen         := mactivos_margen  / mv_status01  ]
+  dataset[ , rt_14_mactivos_margen         := mactivos_margen  / mcomisiones_mantenimiento  ]
+  dataset[ , rt_15_mactivos_margen        := mactivos_margen  / ctarjeta_visa_transacciones  ]
+  dataset[ , rt_16_mactivos_margen         := mactivos_margen  / mrentabilidad_annual  ]
+  
+  dataset[ , rt_1_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mcaja_ahorro  ]
+  dataset[ , rt_2_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mtotal_prestamos  ]
+  dataset[ , rt_5_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mvr_msaldopesos  ]
+  dataset[ , rt_6_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mcuentas_saldo  ]
+  dataset[ , rt_7_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / cpayroll_trx  ]
+  dataset[ , rt_8_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mpayroll  ]
+  dataset[ , rt_9_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mv_msaldopesos  ]
+  dataset[ , rt_14_mtarjeta_visa_consumo          := mtarjeta_visa_consumo   / mcomisiones_mantenimiento  ]
+  dataset[ , rt_15_mtarjeta_visa_consumo        := mtarjeta_visa_consumo   / ctarjeta_visa_transacciones  ]
+  dataset[ , rt_16_mtarjeta_visa_consumo          := mtarjeta_visa_consumo   / mrentabilidad_annual  ]
+  
+  dataset[ , rt_1_mcaja_ahorro         := mcaja_ahorro  / mtotal_prestamos  ]
+  dataset[ , rt_4_mcaja_ahorro         := mcaja_ahorro  / cpayroll_trx  ]
+  dataset[ , rt_5_mcaja_ahorro       := mcaja_ahorro  / mvr_msaldopesos  ]
+  dataset[ , rt_6_mcaja_ahorro         := mcaja_ahorro  / mcuentas_saldo  ]
+  dataset[ , rt_8_mcaja_ahorro         := mcaja_ahorro  / mpayroll  ]
+  dataset[ , rt_2_mcaja_ahorro         := mcaja_ahorro  / mv_msaldopesos  ]
+  dataset[ , rt_14_mcaja_ahorro         := mcaja_ahorro   / mcomisiones_mantenimiento  ]
+  dataset[ , rt_15_mcaja_ahorro        := mcaja_ahorro   / ctarjeta_visa_transacciones  ]
+  dataset[ , rt_16_mcaja_ahorro          := mcaja_ahorro   / mrentabilidad_annual  ]  
+  
+  dataset[ , rt_1_mtotal_prestamos        := mtotal_prestamos  / cpayroll_trx  ]
+  dataset[ , rt_5_mtotal_prestamos      := mtotal_prestamos  / mvr_msaldopesos  ]
+  dataset[ , rt_6_mtotal_prestamos         := mtotal_prestamos  / mcuentas_saldo  ]
+  dataset[ , rt_8_mtotal_prestamos         := mtotal_prestamos  / mpayroll  ]
+  dataset[ , rt_14_mtotal_prestamos        := mtotal_prestamos   / mcomisiones_mantenimiento  ]
+  dataset[ , rt_15_mtotal_prestamos        := mtotal_prestamos   / ctarjeta_visa_transacciones  ]
+  dataset[ , rt_16_mtotal_prestamos          := mtotal_prestamos   / mrentabilidad_annual  ]  
+  
+  dataset[ , rt_1_cpayroll_trx        := cpayroll_trx  / mvr_msaldopesos  ]
+  dataset[ , rt_6_cpayroll_trx         := cpayroll_trx  / mcuentas_saldo  ]
+  dataset[ , rt_8_cpayroll_trx         := cpayroll_trx  / mpayroll  ]
+  dataset[ , rt_14_cpayroll_trx    := cpayroll_trx   / mcomisiones_mantenimiento  ]
+  dataset[ , rt_15_cpayroll_trx     := cpayroll_trx   / ctarjeta_visa_transacciones  ]
+  dataset[ , rt_13_cpayroll_trx          := cpayroll_trx   / mrentabilidad_annual  ]  
+  
+  dataset[ , rt_14_ctarjeta_visa_transacciones        := ctarjeta_visa_transacciones   / mcomisiones_mantenimiento  ]
+  dataset[ , rt_15_mrentabilidad_annual      := mrentabilidad_annual   / ctarjeta_visa_transacciones  ]
+  dataset[ , rt_16_mcomisiones_mantenimiento          := mcomisiones_mantenimiento   / mrentabilidad_annual  ]  
+  
+  dataset[ , rt_1_mvr_msaldopesos        := mvr_msaldopesos  / mcuentas_saldo  ]
+  dataset[ , rt_8_mvr_msaldopesos         := mvr_msaldopesos  / mpayroll  ]
+  dataset[ , rt_1_mcuentas_saldo        := mcuentas_saldo  / mpayroll  ]
+  
+  
   #valvula de seguridad para evitar valores infinitos
   #paso los infinitos a NULOS
   infinitos      <- lapply(names(dataset),function(.name) dataset[ , sum(is.infinite(get(.name)))])
