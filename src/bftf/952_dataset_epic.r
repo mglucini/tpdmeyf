@@ -62,6 +62,7 @@ palancas$tendencia6  <- TRUE    #Great power comes with great responsability
 
 palancas$canaritosimportancia  <- FALSE  #si me quedo solo con lo mas importante de canaritosimportancia
 
+palancas$ranking <- TRUE
 
 #escribo para saber cuales fueron los parametros
 write_yaml(  palancas,  paste0( "./work/palanca_",  palancas$version  ,".yaml" ) )
@@ -440,6 +441,13 @@ Lags  <- function( dataset, cols, nlag, deltas )
 
   ReportarCampos( dataset )
 }
+# Función Calculo el Rank
+
+Ranking  <- function( dataset, cols)
+{
+  dataset[ , paste0(cols,"_rank")        := frank(cols)]
+ 
+}
 #------------------------------------------------------------------------------
 #calcula el promedio de los ultimos  nhistoria meses
 
@@ -722,7 +730,10 @@ correr_todo  <- function( palancas )
   if( palancas$nuevasvars )  AgregarVariables( dataset )
 
   cols_analiticas  <- setdiff( colnames(dataset),  c("numero_de_cliente","foto_mes","mes","clase_ternaria") )
-
+  
+  if( palancas$ranking )   Ranking( dataset, cols_analiticas)
+  
+  
   if( palancas$lag1 )   Lags( dataset, cols_analiticas, 1, palancas$delta1 )
   if( palancas$lag2 )   Lags( dataset, cols_analiticas, 2, palancas$delta2 )
   if( palancas$lag3 )   Lags( dataset, cols_analiticas, 3, palancas$delta3 )
