@@ -41,7 +41,7 @@ setwd( directory.root )
 
 
 
-kexperimento  <- NA   #NA si se corre la primera vez, un valor concreto si es para continuar procesando
+kexperimento  <- 5015   #NA si se corre la primera vez, un valor concreto si es para continuar procesando
 
 kscript         <- "964_epic_pandemia_engendro"
 
