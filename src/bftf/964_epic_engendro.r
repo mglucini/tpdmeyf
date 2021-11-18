@@ -55,7 +55,7 @@ ktest_mes_desde  <- 202011
 ktrain_subsampling  <- 0.1   #el undersampling que voy a hacer de los continua
 
 ktrain_mes_hasta    <- 202010  #Obviamente, solo puedo entrenar hasta 202011
-ktrain_mes_desde    <- 202003
+ktrain_mes_desde    <- 201901
 ktrain_meses_malos  <- c( 202006 )  #meses que quiero excluir del entrenamiento
 
 
