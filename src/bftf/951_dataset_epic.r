@@ -22,7 +22,7 @@ setwd( directory.root )
 
 palancas  <- list()  #variable con las palancas para activar/desactivar
 
-palancas$version  <- "v951"   #Muy importante, ir cambiando la version
+palancas$version  <- "v960"   #Muy importante, ir cambiando la version
 
 palancas$variablesdrift  <- c()   #aqui van las columnas que se quieren eliminar
 
@@ -59,6 +59,7 @@ palancas$ratiomean6  <- FALSE   #Un derivado de la idea de Daiana Sparta
 
 palancas$tendencia6  <- FALSE    #Great power comes with great responsability
 
+palancas$antonio  <- TRUE   # el valor de la variable sobre el promedio de ese mes
 
 palancas$canaritosimportancia  <- FALSE  #si me quedo solo con lo mas importante de canaritosimportancia
 
@@ -278,96 +279,6 @@ AgregarVariables  <- function( dataset )
   dataset[ , mvr_mpagominimo         := mv_mpagominimo  / mv_mlimitecompra ]
 
   #Aqui debe usted agregar sus propias nuevas variables
-  # Suma de cantidad de  Prestamos Prendarios , Personales e Hipotecarios
-  dataset[ , ctotal_prestamos          := rowSums( cbind( cprestamos_personales,  cprestamos_prendarios,cprestamos_hipotecarios) , na.rm=TRUE ) ]
-  dataset[ , crateprestamosp         := cprestamos_personales  / ctotal_prestamos ]
-  dataset[ , crateprestamospr         := cprestamos_prendarios  / ctotal_prestamos ]
-  dataset[ , crateprestamosh         := cprestamos_hipotecarios  / ctotal_prestamos ]
-  # Suma de monto de  Prestamos Prendarios , Personales e Hipotecarios
-  dataset[ , mtotal_prestamos          := rowSums( cbind( mprestamos_personales,  mprestamos_prendarios,mprestamos_hipotecarios) , na.rm=TRUE ) ]
-  dataset[ , mrateprestamosp         := mprestamos_personales  / mtotal_prestamos ]
-  dataset[ , mrateprestamospr         := mprestamos_prendarios  / mtotal_prestamos ]
-  dataset[ , mrateprestamosh         := mprestamos_hipotecarios  / mtotal_prestamos ]
-  
-  # Rate Total Prestamos
-  dataset[ , prestamos_promedio_total         := mtotal_prestamos  / ctotal_prestamos ]
-  
-  ####
-  
-  dataset[ , prom_cuentacorriente         := mcuenta_corriente  / ccuenta_corriente ]
-  dataset[ , prom_cajaahorro         := mcaja_ahorro  / ccaja_ahorro  ]
-  dataset[ , ccorriente_ahorro          := rowSums( cbind( ccuenta_corriente,  ccaja_ahorro) , na.rm=TRUE ) ]
-  dataset[ , mcorriente_ahorro          := rowSums( cbind( mcuenta_corriente,  mcaja_ahorro) , na.rm=TRUE ) ]
-  dataset[ , prom_corriente_ahorro         := mcorriente_ahorro  / ccorriente_ahorro  ]
-  
-  dataset[ , rt_1_ctrx_quarter         := ctrx_quarter  / mtarjeta_visa_consumo  ]
-  dataset[ , rt_2_ctrx_quarter         := ctrx_quarter  / mcaja_ahorro  ]
-  dataset[ , rt_3_ctrx_quarter         := ctrx_quarter  / mtotal_prestamos  ]
-  dataset[ , rt_4_ctrx_quarter         := ctrx_quarter  / cpayroll_trx  ]
-  dataset[ , rt_5_ctrx_quarter         := ctrx_quarter  / mvr_msaldopesos  ]
-  dataset[ , rt_6_ctrx_quarter         := ctrx_quarter  / mcuentas_saldo  ]
-  dataset[ , rt_7_ctrx_quarter         := ctrx_quarter  / cpayroll_trx  ]
-  dataset[ , rt_8_ctrx_quarter         := ctrx_quarter  / mpayroll  ]
-  dataset[ , rt_9_ctrx_quarter         := ctrx_quarter  / mcuenta_corriente  ]
-  dataset[ , rt_10_ctrx_quarter         := ctrx_quarter  / ctarjeta_visa_transacciones  ]
-  dataset[ , rt_11_ctrx_quarter         := ctrx_quarter  / mprestamos_personales  ]
-  dataset[ , rt_12_ctrx_quarter         := ctrx_quarter  / mactivos_margen  ]
-  dataset[ , rt_13_ctrx_quarter         := ctrx_quarter  / mv_status01  ]
-  dataset[ , rt_14_ctrx_quarter         := ctrx_quarter  / mcomisiones_mantenimiento  ]
-  dataset[ , rt_15_ctrx_quarter         := ctrx_quarter  / ctarjeta_visa_transacciones  ]
-  dataset[ , rt_16_ctrx_quarter         := ctrx_quarter  / mrentabilidad_annual  ]
-  
-  
-  dataset[ , rt_1_mactivos_margen         := mactivos_margen  / mprestamos_personales  ]
-  dataset[ , rt_1_mprestamos_personales         := mprestamos_personales  / mv_status01  ]
-  dataset[ , rt_1_mactivos_margen         := mactivos_margen  / mv_status01  ]
-  dataset[ , rt_14_mactivos_margen         := mactivos_margen  / mcomisiones_mantenimiento  ]
-  dataset[ , rt_15_mactivos_margen        := mactivos_margen  / ctarjeta_visa_transacciones  ]
-  dataset[ , rt_16_mactivos_margen         := mactivos_margen  / mrentabilidad_annual  ]
-  
-  dataset[ , rt_1_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mcaja_ahorro  ]
-  dataset[ , rt_2_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mtotal_prestamos  ]
-  dataset[ , rt_5_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mvr_msaldopesos  ]
-  dataset[ , rt_6_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mcuentas_saldo  ]
-  dataset[ , rt_7_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / cpayroll_trx  ]
-  dataset[ , rt_8_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mpayroll  ]
-  dataset[ , rt_9_mtarjeta_visa_consumo         := mtarjeta_visa_consumo  / mv_msaldopesos  ]
-  dataset[ , rt_14_mtarjeta_visa_consumo          := mtarjeta_visa_consumo   / mcomisiones_mantenimiento  ]
-  dataset[ , rt_15_mtarjeta_visa_consumo        := mtarjeta_visa_consumo   / ctarjeta_visa_transacciones  ]
-  dataset[ , rt_16_mtarjeta_visa_consumo          := mtarjeta_visa_consumo   / mrentabilidad_annual  ]
-  
-  dataset[ , rt_1_mcaja_ahorro         := mcaja_ahorro  / mtotal_prestamos  ]
-  dataset[ , rt_4_mcaja_ahorro         := mcaja_ahorro  / cpayroll_trx  ]
-  dataset[ , rt_5_mcaja_ahorro       := mcaja_ahorro  / mvr_msaldopesos  ]
-  dataset[ , rt_6_mcaja_ahorro         := mcaja_ahorro  / mcuentas_saldo  ]
-  dataset[ , rt_8_mcaja_ahorro         := mcaja_ahorro  / mpayroll  ]
-  dataset[ , rt_2_mcaja_ahorro         := mcaja_ahorro  / mv_msaldopesos  ]
-  dataset[ , rt_14_mcaja_ahorro         := mcaja_ahorro   / mcomisiones_mantenimiento  ]
-  dataset[ , rt_15_mcaja_ahorro        := mcaja_ahorro   / ctarjeta_visa_transacciones  ]
-  dataset[ , rt_16_mcaja_ahorro          := mcaja_ahorro   / mrentabilidad_annual  ]  
-  
-  dataset[ , rt_1_mtotal_prestamos        := mtotal_prestamos  / cpayroll_trx  ]
-  dataset[ , rt_5_mtotal_prestamos      := mtotal_prestamos  / mvr_msaldopesos  ]
-  dataset[ , rt_6_mtotal_prestamos         := mtotal_prestamos  / mcuentas_saldo  ]
-  dataset[ , rt_8_mtotal_prestamos         := mtotal_prestamos  / mpayroll  ]
-  dataset[ , rt_14_mtotal_prestamos        := mtotal_prestamos   / mcomisiones_mantenimiento  ]
-  dataset[ , rt_15_mtotal_prestamos        := mtotal_prestamos   / ctarjeta_visa_transacciones  ]
-  dataset[ , rt_16_mtotal_prestamos          := mtotal_prestamos   / mrentabilidad_annual  ]  
-  
-  dataset[ , rt_1_cpayroll_trx        := cpayroll_trx  / mvr_msaldopesos  ]
-  dataset[ , rt_6_cpayroll_trx         := cpayroll_trx  / mcuentas_saldo  ]
-  dataset[ , rt_8_cpayroll_trx         := cpayroll_trx  / mpayroll  ]
-  dataset[ , rt_14_cpayroll_trx    := cpayroll_trx   / mcomisiones_mantenimiento  ]
-  dataset[ , rt_15_cpayroll_trx     := cpayroll_trx   / ctarjeta_visa_transacciones  ]
-  dataset[ , rt_13_cpayroll_trx          := cpayroll_trx   / mrentabilidad_annual  ]  
-  
-  dataset[ , rt_14_ctarjeta_visa_transacciones        := ctarjeta_visa_transacciones   / mcomisiones_mantenimiento  ]
-  dataset[ , rt_15_mrentabilidad_annual      := mrentabilidad_annual   / ctarjeta_visa_transacciones  ]
-  dataset[ , rt_16_mcomisiones_mantenimiento          := mcomisiones_mantenimiento   / mrentabilidad_annual  ]  
-  
-  dataset[ , rt_1_mvr_msaldopesos        := mvr_msaldopesos  / mcuentas_saldo  ]
-  dataset[ , rt_8_mvr_msaldopesos         := mvr_msaldopesos  / mpayroll  ]
-  dataset[ , rt_1_mcuentas_saldo        := mcuentas_saldo  / mpayroll  ]
 
   #valvula de seguridad para evitar valores infinitos
   #paso los infinitos a NULOS
@@ -589,6 +500,22 @@ Tendencia  <- function( dataset, cols )
 
 }
 #------------------------------------------------------------------------------
+#Esta palanca fue solicitada por  Antonio Velazquez Bustamente
+#agregar una palanca al script 951 que genere el valor de la variable/(el promedio de la misma de todos los clientes para el mes en cuestión)
+
+Antonio  <- function( cols )
+{
+
+  sufijo  <- paste0( "_tony")
+
+  dataset[ , paste0( cols, sufijo) := lapply( .SD,  function(x){ x/mean(x, na.rm=TRUE)} ), 
+             by= foto_mes, 
+             .SDcols= cols]
+
+  ReportarCampos( dataset )
+}
+#------------------------------------------------------------------------------
+
 VPOS_CORTE  <- c()
 
 fganancia_lgbm_meseta  <- function(probs, datos) 
@@ -683,70 +610,63 @@ CanaritosImportancia  <- function( dataset )
   ReportarCampos( dataset )
 }
 #------------------------------------------------------------------------------
-
-correr_todo  <- function( palancas )
-{
-  #cargo el dataset ORIGINAL
-  dataset  <- fread( "./datasetsOri/paquete_premium.csv.gz")
-
-  setorder(  dataset, numero_de_cliente, foto_mes )  #ordeno el dataset
-
-  AgregarMes( dataset )  #agrego el mes del año
-
-  if( length(palancas$variablesdrift) > 0 )   DriftEliminar( dataset, palancas$variablesdrift )
-
-  if( palancas$dummiesNA )  DummiesNA( dataset )  #esta linea debe ir ANTES de Corregir  !!
-
-  if( palancas$corregir )  Corregir( dataset )  #esta linea debe ir DESPUES de  DummiesNA
-
-  if( palancas$nuevasvars )  AgregarVariables( dataset )
-
-  cols_analiticas  <- setdiff( colnames(dataset),  c("numero_de_cliente","foto_mes","mes","clase_ternaria") )
-
-  if( palancas$lag1 )   Lags( dataset, cols_analiticas, 1, palancas$delta1 )
-  if( palancas$lag2 )   Lags( dataset, cols_analiticas, 2, palancas$delta2 )
-  if( palancas$lag3 )   Lags( dataset, cols_analiticas, 3, palancas$delta3 )
-  if( palancas$lag4 )   Lags( dataset, cols_analiticas, 4, palancas$delta4 )
-  if( palancas$lag5 )   Lags( dataset, cols_analiticas, 5, palancas$delta5 )
-  if( palancas$lag6 )   Lags( dataset, cols_analiticas, 6, palancas$delta6 )
-
-  if( palancas$promedio3 )  Promedios( dataset, cols_analiticas, 3 )
-  if( palancas$promedio6 )  Promedios( dataset, cols_analiticas, 6 )
-
-  if( palancas$minimo3 )  Minimos( dataset, cols_analiticas, 3 )
-  if( palancas$minimo6 )  Minimos( dataset, cols_analiticas, 6 )
-
-  if( palancas$maximo3 )  Maximos( dataset, cols_analiticas, 3 )
-  if( palancas$maximo6 )  Maximos( dataset, cols_analiticas, 6 )
-
-  if(palancas$ratiomax3)  RatioMax(  dataset, cols_analiticas, 3) #La idea de Daiana Sparta
-  if(palancas$ratiomean6) RatioMean( dataset, cols_analiticas, 6) #Derivado de la idea de Daiana Sparta
-
-
-  if( palancas$tendencia6 )  Tendencia( dataset, cols_analiticas)
-
-
-  if( palancas$canaritosimportancia )  CanaritosImportancia( dataset )
-
-
-
-  #dejo la clase como ultimo campo
-  nuevo_orden  <- c( setdiff( colnames( dataset ) , "clase_ternaria" ) , "clase_ternaria" )
-  setcolorder( dataset, nuevo_orden )
-
-  #Grabo el dataset
-  fwrite( dataset,
-          paste0( "./datasets/dataset_epic_", palancas$version, ".csv.gz" ),
-          logical01 = TRUE,
-          sep= "," )
-
-}
-#------------------------------------------------------------------------------
-
 #Aqui empieza el programa
 
+#cargo el dataset ORIGINAL
+dataset  <- fread( "./datasetsOri/paquete_premium.csv.gz")
 
-correr_todo( palancas )
+setorder(  dataset, numero_de_cliente, foto_mes )  #ordeno el dataset
+
+AgregarMes( dataset )  #agrego el mes del año
+
+if( length(palancas$variablesdrift) > 0 )   DriftEliminar( dataset, palancas$variablesdrift )
+
+if( palancas$dummiesNA )  DummiesNA( dataset )  #esta linea debe ir ANTES de Corregir  !!
+
+if( palancas$corregir )  Corregir( dataset )  #esta linea debe ir DESPUES de  DummiesNA
+
+if( palancas$nuevasvars )  AgregarVariables( dataset )
+
+cols_analiticas  <- setdiff( colnames(dataset),  c("numero_de_cliente","foto_mes","mes","clase_ternaria") )
+
+if( palancas$lag1 )   Lags( dataset, cols_analiticas, 1, palancas$delta1 )
+if( palancas$lag2 )   Lags( dataset, cols_analiticas, 2, palancas$delta2 )
+if( palancas$lag3 )   Lags( dataset, cols_analiticas, 3, palancas$delta3 )
+if( palancas$lag4 )   Lags( dataset, cols_analiticas, 4, palancas$delta4 )
+if( palancas$lag5 )   Lags( dataset, cols_analiticas, 5, palancas$delta5 )
+if( palancas$lag6 )   Lags( dataset, cols_analiticas, 6, palancas$delta6 )
+
+if( palancas$promedio3 )  Promedios( dataset, cols_analiticas, 3 )
+if( palancas$promedio6 )  Promedios( dataset, cols_analiticas, 6 )
+
+if( palancas$minimo3 )  Minimos( dataset, cols_analiticas, 3 )
+if( palancas$minimo6 )  Minimos( dataset, cols_analiticas, 6 )
+
+if( palancas$maximo3 )  Maximos( dataset, cols_analiticas, 3 )
+if( palancas$maximo6 )  Maximos( dataset, cols_analiticas, 6 )
+
+if(palancas$ratiomax3)  RatioMax(  dataset, cols_analiticas, 3) #La idea de Daiana Sparta
+if(palancas$ratiomean6) RatioMean( dataset, cols_analiticas, 6) #Derivado de la idea de Daiana Sparta
+
+
+if( palancas$tendencia6 )  Tendencia( dataset, cols_analiticas)
+
+if( palancas$antonio )  Antonio( cols_analiticas)
+
+if( palancas$canaritosimportancia )  CanaritosImportancia( dataset )
+
+
+
+#dejo la clase como ultimo campo
+nuevo_orden  <- c( setdiff( colnames( dataset ) , "clase_ternaria" ) , "clase_ternaria" )
+setcolorder( dataset, nuevo_orden )
+
+#Grabo el dataset
+fwrite( dataset,
+        paste0( "./datasets/dataset_epic_", palancas$version, ".csv.gz" ),
+        logical01 = TRUE,
+        sep= "," )
+
 
 
 quit( save="no" )
