@@ -14,7 +14,10 @@ require("data.table")
 #defino la carpeta donde trabajo
 directory.root  <-  "~/buckets/b1/"  #Google Cloud
 setwd( directory.root )
-
+ReportarCampos  <- function( dataset )
+{
+  cat( "La cantidad de campos es ", ncol(dataset) , "\n" )
+}
 
 #------------------------------------------------------------------------------
 
