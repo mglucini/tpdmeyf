@@ -437,7 +437,28 @@ AgregarMes  <- function( dataset )
   dataset[  , mes := foto_mes %% 100 ]
   ReportarCampos( dataset )
 }
-
+fganancia_lgbm_meseta  <- function(probs, datos) 
+{
+  vlabels  <- getinfo(datos, "label")
+  vpesos   <- getinfo(datos, "weight")
+  
+  #solo sumo 48750 si vpesos > 1, hackeo 
+  tbl  <- as.data.table( list( "prob"=probs, "gan"= ifelse( vlabels==1 & vpesos > 1, 48750, -1250 ) ) )
+  
+  setorder( tbl, -prob )
+  tbl[ , posicion := .I ]
+  tbl[ , gan_acum :=  cumsum( gan ) ]
+  setorder( tbl, -gan_acum )   #voy por la meseta
+  
+  gan  <- mean( tbl[ 1:500,  gan_acum] )  #meseta de tamaño 500
+  
+  pos_meseta  <- tbl[ 1:500,  median(posicion)]
+  VPOS_CORTE  <<- c( VPOS_CORTE, pos_meseta )
+  
+  return( list( "name"= "ganancia", 
+                "value"=  gan,
+                "higher_better"= TRUE ) )
+}
 CanaritosImportancia  <- function( dataset )
 {
   
