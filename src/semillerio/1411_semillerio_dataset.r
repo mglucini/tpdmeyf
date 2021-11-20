@@ -10,6 +10,8 @@ gc()             #garbage collection
 
 require("data.table")
 
+require("lightgbm")
+
 
 #defino la carpeta donde trabajo
 directory.root  <-  "~/buckets/b1/"  #Google Cloud
