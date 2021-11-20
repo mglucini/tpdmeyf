@@ -437,6 +437,8 @@ AgregarMes  <- function( dataset )
   dataset[  , mes := foto_mes %% 100 ]
   ReportarCampos( dataset )
 }
+
+VPOS_CORTE  <- c()
 fganancia_lgbm_meseta  <- function(probs, datos) 
 {
   vlabels  <- getinfo(datos, "label")
