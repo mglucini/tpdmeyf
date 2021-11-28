@@ -72,7 +72,94 @@ while(  h>0  &  !( distintos >=6 & distintos <=7 ) )
 
 dataset[  , .N,  cluster2 ]  #tamaño de los clusters
 
+dataset[  , .N,  cliente_vip ]  #tamaño de los vips
+
 #ahora a mano veo las variables
 dataset[  , mean(ctrx_quarter),  cluster2 ]  #media de la variable  ctrx_quarter
+
+dataset[  , mean(cliente_edad),  cluster2 ]
+
+dataset[  , mean(cliente_antiguedad),  cluster2 ]
+
+dataset[  , mean(cproductos),  cluster2 ]
+
+dataset[  , mean(mcuenta_corriente),  cluster2 ]
+
+dataset[  , mean(mcuentas_saldo),  cluster2 ]
+
+dataset[  , mean(mautoservicio),  cluster2 ]
+
+dataset[  , mean(ctarjeta_visa+ctarjeta_master),  cluster2 ] # cantidad total de tarjetas
+
+dataset[  , mean(cprestamos_personales),  cluster2 ]
+dataset[  , mean(mprestamos_personales),  cluster2 ]
+
+dataset[  , mean(cprestamos_prendarios),  cluster2 ]
+dataset[  , mean(mprestamos_prendarios),  cluster2 ]
+
+dataset[  , mean(cprestamos_hipotecarios),  cluster2 ]
+dataset[  , mean(mprestamos_hipotecarios),  cluster2 ]
+
+dataset[  , mean(cinversion1),  cluster2 ]
+dataset[  , mean(cinversion2),  cluster2 ]
+
+
+dataset[  , mean(minversion1_pesos),  cluster2 ]
+
+dataset[  , mean(cpayroll_trx),  cluster2 ]
+
+dataset[  , mean(cpayroll2_trx),  cluster2 ]
+
+dataset[  , mean(cpagodeservicios),  cluster2 ]
+
+dataset[  , mean(cpagomiscuentas),  cluster2 ]
+
+dataset[  , mean(ccajeros_propios_descuentos),  cluster2 ]
+dataset[  , mean(ctarjeta_visa_descuentos),  cluster2 ]
+dataset[  , mean(ctarjeta_master_descuentos),  cluster2 ]
+
+dataset[  , mean(mcomisiones_mantenimiento+mcomisiones_otras),  cluster2 ]
+
+dataset[  , mean(cforex),  cluster2 ]
+dataset[  , mean(cforex_buy),  cluster2 ]
+dataset[  , mean(cforex_sell),  cluster2 ]
+
+dataset[  , mean(ctransferencias_recibidas),  cluster2 ]
+dataset[  , mean(ctransferencias_emitidas),  cluster2 ]
+
+dataset[  , mean(chomebanking_transacciones),  cluster2 ]
+dataset[  , mean(ccajas_transacciones),  cluster2 ]
+
+dataset[  , mean(ccajas_consultas),  cluster2 ]
+
+dataset[  , mean(ccajas_extracciones),  cluster2 ]
+
+dataset[  , mean(catm_trx_other),  cluster2 ]
+
+dataset[  , mean(cmobile_app_trx),  cluster2 ]
+
+dataset[  , sum(Master_delinquency),  cluster2 ]
+
+dataset[  , .N,  list(cluster2, Master_status)]
+
+dataset[  , mean(Master_mlimitecompra),  cluster2 ]
+dataset[  , mean(Master_fechaalta),  cluster2 ]
+dataset[  , mean(Master_mconsumototal),  cluster2 ]
+dataset[  , mean(Master_cconsumos),  cluster2 ]
+dataset[  , mean(Master_cadelantosefectivo),  cluster2 ]
+
+
+dataset[  , sum(Visa_delinquency),  cluster2 ]
+
+dataset[  , .N,  list(cluster2, Visa_status)]
+
+dataset[  , mean(Visa_mlimitecompra),  cluster2 ]
+dataset[  , mean(Visa_fechaalta),  cluster2 ]
+dataset[  , mean(Visa_mconsumototal),  cluster2 ]
+dataset[  , mean(Visa_cconsumos),  cluster2 ]
+dataset[  , mean(Visa_cadelantosefectivo),  cluster2 ]
+
+
+
 
 
