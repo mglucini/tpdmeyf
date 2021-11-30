@@ -25,13 +25,17 @@ kcantidad_semillas  <- 200
 #ATENCION
 #aqui deben ir los mejores valores que salieron de la optimizacion bayesiana
 x  <- list()
-x$gleaf_size   <-  43.7893702327782
-x$gnum_leaves  <-  0.318881392248299
-x$learning_rate <-  0.0396437883395754
-x$feature_fraction <-  0.12614865590711
-x$max_bin  <-  31
-x$num_iterations  <-  1179.5
-x$pos_ratio  <- 0.0412241721272376
+x$gleaf_size   <- 60.7335632380703
+x$gnum_leaves  <-  0.326350406124288
+
+x$learning_rate <-  0.0406211693509417
+x$feature_fraction <-  0.202638849127495
+
+x$max_bin  <- 618 
+x$num_iterations  <-  591
+
+x$pos_ratio  <-0.037030621040563
+
 
 
 #------------------------------------------------------------------------------
@@ -129,9 +133,9 @@ param_buenos  <- list( objective= "binary",
                        seed= 484201,
                        max_depth=  -1,
                        max_bin= x$max_bin,
-                       min_gain_to_split= 0.0,
-                       lambda_l1= 0.0,
-                       lambda_l2= 0.0, 
+                       min_gain_to_split= 11,
+                       lambda_l1= 31.4287227247213,
+                       lambda_l2=98.4887962678072, 
                        num_iterations= x$num_iterations,
                        learning_rate=  x$learning_rate,
                        feature_fraction= x$feature_fraction,

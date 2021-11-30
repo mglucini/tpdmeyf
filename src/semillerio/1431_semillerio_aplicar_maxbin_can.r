@@ -17,7 +17,7 @@ karch_dataset  <- "./datasets/semillerio_dataset_lag_varpropias.csv.gz"
 ksalida  <- "semillerio3" 
 
 kexperimento  <- NA
-kscript         <- "s1431_E5025"
+kscript         <- "s1431_E5025_2"
 
 
 kcantidad_semillas  <- 100
@@ -25,13 +25,14 @@ kcantidad_semillas  <- 100
 #ATENCION
 #aqui deben ir los mejores valores que salieron de la optimizacion bayesiana
 x  <- list()
-x$gleaf_size   <-  65.9354732710926
-x$gnum_leaves  <-  0.42481725753394
-x$learning_rate <-  0.19966389135585
-x$feature_fraction <-  0.173597725343197
-x$max_bin  <-  389
-x$num_iterations  <-  416
-x$pos_ratio  <- 0.0381528625107747
+x$gleaf_size   <-  67.6150349131785
+x$gnum_leaves  <- 0.655897790479867
+x$learning_rate <-  0.181853019437112
+x$feature_fraction <-  0.650858622809028
+x$max_bin  <-  873
+x$num_iterations  <-  229
+x$pos_ratio  <- 0.0408208012184814
+
 
 
 #------------------------------------------------------------------------------
@@ -130,8 +131,8 @@ param_buenos  <- list( objective= "binary",
                        max_depth=  -1,
                        max_bin= x$max_bin,
                        min_gain_to_split= 0.0,
-                       lambda_l1= 0.0,
-                       lambda_l2= 0.0, 
+                       lambda_l1=58.2960155734327,
+                       lambda_l2= 18.0139144424174, 
                        num_iterations= x$num_iterations,
                        learning_rate=  x$learning_rate,
                        feature_fraction= x$feature_fraction,

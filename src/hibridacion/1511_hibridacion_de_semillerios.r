@@ -11,7 +11,7 @@ require("yaml")
 setwd( "~/buckets/b1/" )
 
 #notar que son de experimentos distintos, y uno sumo 200 semillas y el otro apenas 70
-arch1  <- "./kaggle/E1427/meseta/E1427_s1438_200_14000.csv"
+arch1  <- "./kaggle/E5027/meseta/E5027_s1431_E5022_90_14000.csv"
 arch2  <- "./kaggle/E5028/meseta/E5028_s1431_E5025_80_14000.csv"
 
 
@@ -66,7 +66,7 @@ modelo_nuevo[ , ranking  :=  200*modelo1$ranking + 70*modelo2$ranking ]   #ATENC
 
 setorder( modelo_nuevo, ranking ) 
 
-for(  corte  in seq( 11000, 1500, 100) ) #imprimo cortes en 10000, 11000, 12000, 13000, 14000 y 15000
+for(  corte  in seq( 11000, 15000, 100) ) #imprimo cortes en 10000, 11000, 12000, 13000, 14000 y 15000
 {
   modelo_nuevo[ ,  Predicted := 0L ]
   modelo_nuevo[ 1:corte,  Predicted := 1L ]  #me quedo con los primeros
