@@ -14,7 +14,7 @@ gc()
 
 #achico el dataset
 dataset[  ,  azar := runif( nrow(dataset) ) ]
-dataset  <-  dataset[  clase_ternaria =="BAJA+1"  & foto_mes>=202011  & foto_mes<=202011, ]
+dataset  <-  dataset[  clase_ternaria =="BAJA+1"  & foto_mes>=202010  & foto_mes<=202011, ]
 gc()
 
 
@@ -55,7 +55,7 @@ dev.off()
 h <- 20
 distintos <- 0
 
-while(  h>0  &  !( distintos >=6 & distintos <=7 ) )
+while(  h>0  &  !( distintos >=2 & distintos <=3 ) )
 {
   h <- h - 1 
   rf.cluster  <- cutree( hclust.rf, h)
@@ -69,6 +69,8 @@ while(  h>0  &  !( distintos >=6 & distintos <=7 ) )
 
 #en  dataset,  la columna  cluster2  tiene el numero de cluster
 #sacar estadicas por cluster
+
+dataset[  , mean(ccallcenter_transacciones),  cluster2 ] 
 
 dataset[  , .N,  cluster2 ]  #tamaño de los clusters
 
